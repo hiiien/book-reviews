@@ -17,24 +17,31 @@ export const CreateBooksTable = async () => { //creates the table
             book_id SERIAL PRIMARY KEY,
             title TEXT NOT NULL UNIQUE,
             author TEXT,
-            cover_id INT
+            cover_id INT NOT NULL UNIQUE 
         );
     `;
     await pool.query(query);
 };
 
-export const AddNewBookModel = async (book) => {
-    const title = book.title;
-    const author = book.author;
-    const cover_id = book.cover_id;
+//adds a new book
+export const AddNewBookModel = async (title, author, cover_id) => {
     const response = await pool.query(`
-        INSERT INTO book (title, author, cover_id)
-        VALUES ($1, $2, $3)
-        RETURNING book_id;
-        `);
-    return response.rows[0];
+        INSERT INTO books (title, author, cover_id)
+        VALUES ($1, $2, $3);
+        `,
     
+    [title, author, cover_id]);
+    return;
 }
+
+//gets a single book to display personal book page when you click on it
+export const GetABook = async (id) => {
+    const result = await pool.query(`
+       SELECT * FROM books WHERE book_id = $1 
+        `, [id]);
+    return result.rows[0];
+}
+
 //TODO: add different sorting optionality
 export const GetAllBooks = async () => { //gets all books by title
     const result = await pool.query('Select * FROM books ORDER BY title');
