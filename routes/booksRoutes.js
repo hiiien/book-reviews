@@ -1,8 +1,8 @@
 import express from 'express'
-import { listYourBooks } from '../controllers/booksControllers.js'
+import { listAllBooks } from '../controllers/booksControllers.js'
 
 const router = express.Router();
 
-router.get('/', listYourBooks);
+router.get('/', listAllBooks); //routes to the controller for displaying books
 
 export default router

@@ -11,7 +11,7 @@ const pool = new Pool({
     port: 5432,
 });
 
-export const createBooksTable = async () => { //creates the table
+export const CreateBooksTable = async () => { //creates the table
     const query = `
         CREATE TABLE IF NOT EXISTS books (
             book_id SERIAL PRIMARY KEY,
@@ -22,10 +22,22 @@ export const createBooksTable = async () => { //creates the table
     `;
     await pool.query(query);
 };
+
+export const AddNewBookModel = async (book) => {
+    const title = book.title;
+    const author = book.author;
+    const cover_id = book.cover_id;
+    const response = await pool.query(`
+        INSERT INTO book (title, author, cover_id)
+        VALUES ($1, $2, $3)
+        RETURNING book_id;
+        `);
+    return response.rows[0];
+    
+}
 //TODO: add different sorting optionality
-export const getAllBooks = async () => { //gets all books by title
-    const result = await pool.query('Select * FROM books ORDER BY title'
-    );
+export const GetAllBooks = async () => { //gets all books by title
+    const result = await pool.query('Select * FROM books ORDER BY title');
     return result.rows;
 }
 

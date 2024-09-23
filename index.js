@@ -1,7 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import path from 'path';
-import { createBooksTable } from './models/booksModels.js';
+import { CreateBooksTable } from './models/booksModels.js';
 import { fileURLToPath } from 'url';
 import booksRoutes from './routes/booksRoutes.js'
 
@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', booksRoutes);
 
-createBooksTable()
+CreateBooksTable()
     .then(() => {
         console.log('Users table created or already exists');
     })
