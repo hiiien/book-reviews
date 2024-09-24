@@ -29,7 +29,6 @@ export const AddNewBookModel = async (title, author, cover_id) => {
         INSERT INTO books (title, author, cover_id)
         VALUES ($1, $2, $3);
         `,
-    
     [title, author, cover_id]);
     return;
 }
