@@ -36,15 +36,15 @@ export const insertNewBook = async (req, res) => {
     }
 }
 
-export const fetchOneBook = async (req, res) => {
+export const fetchOneBookAndReview = async (req, res) => {
     try {
         const id = req.params.id * 1;
-        const response = await booksModels.GetABook(id);
-        console.log("fetched book succesfully");
+        const response = await booksModels.GetBookAndReview(id);
+        console.log("fetched book and review succesfully");
         res.json(response).status(200);
     } catch (error) {
-        console.log('Error fetching book', error);
-        res.status(500).json({error: 'An error occured while fetching the book'});
+        console.log('Error fetching book and/or review', error);
+        res.status(500).json({error: 'An error occured while fetching the book and/or review'});
     }
 }
 

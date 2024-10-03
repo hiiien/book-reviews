@@ -25,7 +25,7 @@ export const CreateBooksTable = async () => { //creates the table
 
 //adds a new book
 export const AddNewBookModel = async (title, author, cover_id) => {
-    const response = await pool.query(`
+    await pool.query(`
         INSERT INTO books (title, author, cover_id)
         VALUES ($1, $2, $3);
         `,
@@ -34,19 +34,29 @@ export const AddNewBookModel = async (title, author, cover_id) => {
 }
 
 //gets a single book to display personal book page when you click on it
-export const GetABook = async (id) => {
+export const GetBookAndReview = async (id) => {
     const result = await pool.query(`
-       SELECT * FROM books WHERE book_id = $1 
+        SELECT * 
+        FROM books 
+        JOIN reviews 
+        ON books.book_id = reviews.book_id
+        WHERE books.book_id = $1;
         `, [id]);
-    return result.rows[0];
+        return result.rows[0];
 }
 
 //TODO: add different sorting optionality
 export const GetAllBooks = async () => { //gets all books by title
-    const result = await pool.query('Select * FROM books ORDER BY title');
+    const result = await pool.query('SELECT * FROM books ORDER BY title');
     return result.rows;
 }
 
-// export const getSingleBook = async () => {
-//     const result = await pool.query('Select * FROM books ')
-// }
+export const DeleteOneBookAndReview = async (id) => {
+    await pool.query(
+        `DELETE FROM books WHERE book_id = $1`,
+        [id]
+    );
+};
+
+
+export { pool };
