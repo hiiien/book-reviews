@@ -1,4 +1,4 @@
-import { pool } from './booksModels.js';
+import { pool } from '../config/database.js';
 
 export const CreateReviewsTable = async () => { //creates the table
     const query = `

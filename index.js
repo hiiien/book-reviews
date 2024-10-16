@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Serve static files (if any)
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/book/', booksRoutes);
-app.use('/api/review', reviewRoutes);
+app.use('/api/review/', reviewRoutes);
 
 await CreateBooksTable()
     .then(() => {

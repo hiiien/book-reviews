@@ -36,6 +36,7 @@ export const insertNewBook = async (req, res) => {
     }
 }
 
+//gets a book and its review to pass to the frontend 
 export const fetchOneBookAndReview = async (req, res) => {
     try {
         const id = req.params.id * 1;
