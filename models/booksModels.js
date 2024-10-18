@@ -1,4 +1,3 @@
-import pkg from "pg";
 import { pool } from '../config/database.js';
 
 export const CreateBooksTable = async () => { //creates the table
