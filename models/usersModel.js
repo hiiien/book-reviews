@@ -21,8 +21,13 @@ export const CreateUsersTable = async () => {
     };
 };
 
-export const FindUserByID = async (email) => {
+export const FindUserByEmail = async (email) => {
     const response = await pool.query("SELECT * FROM users WHERE email = $1", [email]); // finds user where email matches
+    return response.rows[0];
+}
+
+export const FindUserByID = async (user_id) => {
+    const response = await pool.query("SELECT * FROM users WHERE user_id = $1", [user_id]); // finds user where user_id matches
     return response.rows[0];
 }
 
@@ -54,8 +59,8 @@ export const AddNewGoogleUser = async (email, google_id) => {
     }
 }
 
-export const ValidatePassword = async (email, enteredPassword) => {
-    const validPassword = await pool.query("SELECT password FROM users WHERE email = $1", [email]);
-    return await bcrypt.compare(enteredPassword, validPassword); //returns true or false
-}
+// export const ValidatePassword = async (email, enteredPassword) => {
+//     const validPassword = await pool.query("SELECT password FROM users WHERE email = $1", [email]);
+//     return await bcrypt.compare(enteredPassword, validPassword); //returns true or false
+// }
 
