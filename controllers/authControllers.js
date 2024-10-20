@@ -29,10 +29,8 @@ export const loginUser = (req, res, next) => {
         return res.redirect('/auth/login'); // Redirect if authentication fails
       }
       req.logIn(user, (err) => {
-        if (err) {
-          return next(err); // Handle login error
-        }
-        return res.json({Message: "home"}); // Redirect to home if login is successful
+        if (err) return next(err);
+        return res.redirect('/home');
       });
     })(req, res, next);
   };

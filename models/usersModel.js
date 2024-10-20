@@ -21,13 +21,26 @@ export const CreateUsersTable = async () => {
 };
 
 export const FindUserByEmail = async (email) => {
-    const response = await pool.query("SELECT * FROM users WHERE email = $1", [email]); // finds user where email matches
-    return response.rows[0];
+    try {
+        const response = await pool.query("SELECT * FROM users WHERE email = $1", [email]); // finds user where email matches
+        return response;  
+    } catch (error) {
+        console.error("Error fetching user by email:", err);
+        return null; 
+    }
+    
 }
 
 export const FindUserByID = async (user_id) => {
-    const response = await pool.query("SELECT * FROM users WHERE user_id = $1", [user_id]); // finds user where user_id matches
-    return response.rows[0];
+    
+    try {
+        const response = await pool.query("SELECT * FROM users WHERE user_id = $1", [user_id]); // finds user where user_id matches
+        return response;
+    } catch (error) {
+        console.error("Error fetching user by id:", err);
+        return null; 
+    }
+    
 }
 
 export const AddNewLocalUser = async (email, unhashedPassword) => {
@@ -58,8 +71,5 @@ export const AddNewGoogleUser = async (email, google_id) => {
     }
 }
 
-// export const ValidatePassword = async (email, enteredPassword) => {
-//     const validPassword = await pool.query("SELECT password FROM users WHERE email = $1", [email]);
-//     return await bcrypt.compare(enteredPassword, validPassword); //returns true or false
-// }
+
 
