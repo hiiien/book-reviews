@@ -7,6 +7,7 @@ export const registerLocalUser = async (req, res) => {
         const email = req.body.email;
         const unhashedPassword = req.body.password;
         const user = await AddNewLocalUser(email, unhashedPassword);
+        console.log(user);
     if (user) {
       console.log("New user added:", user);
       res.status(201).json({ message: "User registered successfully." });

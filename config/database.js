@@ -3,7 +3,7 @@ import { config } from 'dotenv';
 
 
 config();
-
+//my database connection
 const { Pool } = pg
 
 const pool = new Pool({

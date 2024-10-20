@@ -32,7 +32,6 @@ export const FindUserByEmail = async (email) => {
 }
 
 export const FindUserByID = async (user_id) => {
-    
     try {
         const response = await pool.query("SELECT * FROM users WHERE user_id = $1", [user_id]); // finds user where user_id matches
         return response;
@@ -44,20 +43,18 @@ export const FindUserByID = async (user_id) => {
 }
 
 export const AddNewLocalUser = async (email, unhashedPassword) => {
-    bcrypt.hash(unhashedPassword, saltRounds, async function(err, hash) {
-        if (err){
-            console.log("Error Hashing Password: ", error);
-            return 
-        };
         try {
-           await pool.query(`
-                INSERT INTO users(email, password, login_type) 
+            const hash = await bcrypt.hash(unhashedPassword, saltRounds); //hashed the password
+            //created the new user in db
+            const newUser = await pool.query(`
+                INSERT INTO users(email, password, login_type)   
                 VALUES ($1, $2, $3) RETURNING *
                 `, [email, hash, "local"]);
+            return newUser.rows[0]; //returns the user to check if it was successful
         } catch (dbErr) {
                 console.log("Error storing local user: ", dbErr);
         };
-    });
+
 };
 
 export const AddNewGoogleUser = async (email, google_id) => {
