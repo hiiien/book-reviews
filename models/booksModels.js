@@ -13,12 +13,12 @@ export const CreateBooksTable = async () => { //creates the table
 };
 
 //adds a new book
-export const AddNewBookModel = async (title, author, cover_id) => {
+export const AddNewBookModel = async (title, author, cover_id, user_id) => {
     await pool.query(`
-        INSERT INTO books (title, author, cover_id)
-        VALUES ($1, $2, $3);
+        INSERT INTO books (title, author, cover_id, user_id)
+        VALUES ($1, $2, $3, $4);
         `,
-    [title, author, cover_id]);
+    [title, author, cover_id, user_id]);
     return;
 }
 

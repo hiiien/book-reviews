@@ -1,5 +1,6 @@
 import { pool } from "../config/database.js"
 import bcrypt from "bcryptjs"
+var saltRounds = 10;
 
 export const CreateUsersTable = async () => {
     const query = `
@@ -9,13 +10,11 @@ export const CreateUsersTable = async () => {
         password VARCHAR(100),  
         login_type VARCHAR(10),
         google_id BIGINT UNIQUE,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         );
     `
     try {
         await pool.query(query);
-        console.log("Users table created successfully or already exists");
     } catch (error) {
         console.log("Error creating table: ", error);
     };
@@ -31,7 +30,7 @@ export const FindUserByID = async (user_id) => {
     return response.rows[0];
 }
 
-export const AddNewLocalUser = async (email, unhashedPassword, saltRounds) => {
+export const AddNewLocalUser = async (email, unhashedPassword) => {
     bcrypt.hash(unhashedPassword, saltRounds, async function(err, hash) {
         if (err){
             console.log("Error Hashing Password: ", error);
@@ -40,7 +39,7 @@ export const AddNewLocalUser = async (email, unhashedPassword, saltRounds) => {
         try {
            await pool.query(`
                 INSERT INTO users(email, password, login_type) 
-                VALUES ($1, $2, $3)
+                VALUES ($1, $2, $3) RETURNING *
                 `, [email, hash, "local"]);
         } catch (dbErr) {
                 console.log("Error storing local user: ", dbErr);

@@ -1,9 +1,11 @@
 import { Strategy as LocalStrategy } from "passport-local";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
-import session from "express-session"
 import bcrypt from "bcryptjs"
-import { FindUserByEmail, FindUserByID } from "../models/usersModel";
+import { FindUserByEmail, FindUserByID } from "../models/usersModel.js";
 import passport from "passport";
+
+//TODO: add google strategy 
+
 
 passport.serializeUser((user, done) => {
     done(null, user.user_id);
@@ -11,7 +13,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (user_id, done) => {
     try {
-        const result = await FindUserByEmail(user_id); //gets full user info
+        const result = await FindUserByID(user_id); //gets full user info
         if (result.rows.length > 0){
             done(null, result.rows[0]); //returns the user
         } else {
@@ -42,5 +44,7 @@ passport.use(new LocalStrategy({
         } catch (error) {
             return done(error)
         };
+
 }));
 
+export default passport;

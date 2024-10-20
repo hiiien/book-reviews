@@ -27,7 +27,13 @@ export const insertNewBook = async (req, res) => {
         const title = req.body.title;
         const author = req.body.author;
         const cover_id = req.body.cover_id;
-        await booksModels.AddNewBookModel(title, author, cover_id);
+        console.log(req.user);
+        const user_id = req.user?.user_id; // Ensure user_id is available
+
+        if (!user_id) {
+            return res.status(401).json({ error: 'User not authenticated' });
+        }
+        await booksModels.AddNewBookModel(title, author, cover_id, user_id);
         console.log("book added succesfully");
         res.status(200);
     } catch (error) {
