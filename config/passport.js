@@ -7,13 +7,12 @@ import passport from "passport";
 //TODO: add google strategy 
 
 
-passport.serializeUser((user, done) => {
-    console.log('Serializing user:', user.user_id);
+passport.serializeUser((user, done) => { //once a login is made the id is store in the user id in the session
     done(null, user.user_id);
 });
 
-passport.deserializeUser(async (user_id, done) => {
-    console.log('Deserializing user:', user_id);
+//whenever a user accesses a protected route the user will be deserialized or on subsiquent requests  
+passport.deserializeUser(async (user_id, done) => {  
     try {
         const result = await FindUserByID(user_id); //gets full user info
         if (result) {

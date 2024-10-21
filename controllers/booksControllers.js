@@ -5,7 +5,12 @@ import * as booksModels from "../models/booksModels.js";
 //TODO: change the mapping into an external function to use with other controller functions
 export const fetchYourBooks = async (req, res) => {
     try {
-        const books = await booksModels.GetAllBooks(); //gets all the books in ascending order by title
+        const user_id = req.user.user_id;
+        if(!user_id){
+            console.log("Error Processing User");
+            return;
+        }
+        const books = await booksModels.GetAllBooks(user_id); //gets all the books in ascending order by title
         const booksWithCover = books.map((book) =>{ //makes a map to add the coverURL keyvalue pair
             const coverUrl = `https://covers.openlibrary.org/b/id/${book.cover_id}-M.jpg`
             return {
@@ -45,8 +50,9 @@ export const insertNewBook = async (req, res) => {
 //gets a book and its review to pass to the frontend 
 export const fetchOneBookAndReview = async (req, res) => {
     try {
-        const id = req.params.id * 1;
-        const response = await booksModels.GetBookAndReview(id);
+        const book_id = req.params.id * 1;
+        const user_id = req.user.user_id;
+        const response = await booksModels.GetBookAndReview(book_id, user_id);
         console.log("fetched book and review succesfully");
         res.json(response).status(200);
     } catch (error) {

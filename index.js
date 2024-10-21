@@ -47,6 +47,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/auth', authRoutes);
 app.use(ensureAuthenticated);
+// app.use((req, res, next) => {
+//     console.log('Session:', req.session); // Log session data
+//     console.log('User:', req.user); // Log user data
+//     next();
+//   });
 app.use('/api/book/', booksRoutes);
 app.use('/api/review/', reviewRoutes);
 

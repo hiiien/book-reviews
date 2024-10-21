@@ -23,20 +23,25 @@ export const AddNewBookModel = async (title, author, cover_id, user_id) => {
 }
 
 //gets a single book to display personal book page when you click on it
-export const GetBookAndReview = async (id) => {
+export const GetBookAndReview = async (id, user_id) => {
     const result = await pool.query(`
-        SELECT * 
-        FROM books 
-        JOIN reviews 
-        ON books.book_id = reviews.book_id
-        WHERE books.book_id = $1;
-        `, [id]);
+        SELECT 
+        books.book_id, books.title, books.author, books.cover_id,
+        reviews.review_id, reviews.review_text, reviews.review_rating, reviews.review_date
+        FROM users 
+        JOIN books ON users.user_id = books.user_id 
+        AND books.book_id = $1
+        LEFT JOIN reviews ON users.user_id = reviews.user_id 
+        AND reviews.book_id = $1
+        WHERE users.user_id = $2;
+        `, [id, user_id]);
+        console.log(result.rows);
         return result.rows[0];
 }
 
 //TODO: add different sorting optionality
-export const GetAllBooks = async () => { //gets all books by title
-    const result = await pool.query('SELECT * FROM books ORDER BY title');
+export const GetAllBooks = async (user_id) => { //gets all books by title
+    const result = await pool.query('SELECT * FROM books WHERE user_id = $1 ORDER BY title ', [user_id]);
     return result.rows;
 }
 

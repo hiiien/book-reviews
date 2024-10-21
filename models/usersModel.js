@@ -9,7 +9,7 @@ export const CreateUsersTable = async () => {
         email VARCHAR(254) NOT NULL UNIQUE, 
         password VARCHAR(100),  
         login_type VARCHAR(10),
-        google_id BIGINT UNIQUE,
+        google_id BIGINT UNIQUE, 
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         );
     `
@@ -34,7 +34,7 @@ export const FindUserByEmail = async (email) => {
 export const FindUserByID = async (user_id) => {
     try {
         const response = await pool.query("SELECT * FROM users WHERE user_id = $1", [user_id]); // finds user where user_id matches
-        return response;
+        return response.rows[0];
     } catch (error) {
         console.error("Error fetching user by id:", err);
         return null; 
@@ -44,7 +44,7 @@ export const FindUserByID = async (user_id) => {
 
 export const AddNewLocalUser = async (email, unhashedPassword) => {
         try {
-            const hash = await bcrypt.hash(unhashedPassword, saltRounds); //hashed the password
+            const hash = await bcrypt.hash(unhashedPassword, saltRounds); //hashed the password **DONT use the bcrypt hashing call back functions causes issues
             //created the new user in db
             const newUser = await pool.query(`
                 INSERT INTO users(email, password, login_type)   
