@@ -2,9 +2,9 @@ import express from 'express';
 import session from 'express-session';
 import bodyParser from 'body-parser';
 import path from 'path';
-import { CreateBooksTable } from './models/booksModels.js';
-import { CreateReviewsTable } from './models/bookReviewsModels.js';
-import { CreateUsersTable } from './models/usersModel.js';
+// import { CreateBooksTable } from './models/booksModels.js';
+// import { CreateReviewsTable } from './models/bookReviewsModels.js';
+// import { CreateUsersTable } from './models/usersModel.js';
 import { fileURLToPath } from 'url';
 import booksRoutes from './routes/booksRoutes.js'
 import reviewRoutes from './routes/reviewRoutes.js'
@@ -55,36 +55,36 @@ app.use(ensureAuthenticated);
 app.use('/api/book/', booksRoutes);
 app.use('/api/review/', reviewRoutes);
 
-await CreateBooksTable()
-    .then(() => {
-        console.log('Books table created or already exists');
-    })
-    .catch((err) => {
-        console.error('Error creating books table', err);
-    });
+// await CreateBooksTable()
+//     .then(() => {
+//         console.log('Books table created or already exists');
+//     })
+//     .catch((err) => {
+//         console.error('Error creating books table', err);
+//     });
 
-   await CreateReviewsTable()
-    .then(() => {
-        console.log('Reviews table created or already exists');
-    })
-    .catch((err) => {
-        console.error('Error creating reviews table', err);
-    });
-    await CreateBooksTable()
-    .then(() => {
-        console.log('Books table created or already exists');
-    })
-    .catch((err) => {
-        console.error('Error creating books table', err);
-    });
+//    await CreateReviewsTable()
+//     .then(() => {
+//         console.log('Reviews table created or already exists');
+//     })
+//     .catch((err) => {
+//         console.error('Error creating reviews table', err);
+//     });
+//     await CreateBooksTable()
+//     .then(() => {
+//         console.log('Books table created or already exists');
+//     })
+//     .catch((err) => {
+//         console.error('Error creating books table', err);
+//     });
 
-   await CreateUsersTable()
-    .then(() => {
-        console.log('Users table created or already exists');
-    })
-    .catch((err) => {
-        console.error('Error creating users table', err);
-    });
+//    await CreateUsersTable()
+//     .then(() => {
+//         console.log('Users table created or already exists');
+//     })
+//     .catch((err) => {
+//         console.error('Error creating users table', err);
+//     });
 
 
 
