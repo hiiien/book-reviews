@@ -1,12 +1,12 @@
 import passport from '../config/passport.js';
-import { AddNewLocalUser } from '../models/usersModel.js';
+import * as User from '../models/usersModel.js';
 
 
 export const registerLocalUser = async (req, res) => {
     try {
         const email = req.body.email;
         const unhashedPassword = req.body.password;
-        const user = await AddNewLocalUser(email, unhashedPassword);
+        const user = await User.AddNewLocalUser(email, unhashedPassword);
     if (user) {
       console.log("New user added:", user);
       res.status(201).json({ message: "User registered successfully." });

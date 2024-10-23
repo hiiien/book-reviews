@@ -2,24 +2,6 @@ import { pool } from "../config/database.js"
 import bcrypt from "bcryptjs"
 var saltRounds = 10;
 
-// export const CreateUsersTable = async () => {
-//     const query = `
-//         CREATE TABLE IF NOT EXISTS users (
-//         user_id SERIAL PRIMARY KEY,
-//         email VARCHAR(254) NOT NULL UNIQUE, 
-//         password VARCHAR(100),  
-//         login_type VARCHAR(10),
-//         google_id BIGINT UNIQUE, 
-//         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-//         );
-//     `
-//     try {
-//         await pool.query(query);
-//     } catch (error) {
-//         console.log("Error creating table: ", error);
-//     };
-// };
-
 export const FindUserByEmail = async (email) => {
     try {
         const response = await pool.query("SELECT * FROM users WHERE email = $1", [email]); // finds user where email matches
@@ -68,5 +50,18 @@ export const AddNewGoogleUser = async (email, google_id) => {
     }
 }
 
+
+export const DeleteUser = async (user_id) => {
+    try {
+        await pool.query(`
+            DELETE FROM users 
+            WHERE user_id = $1; 
+            `, [user_id]);
+        return true;
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+}
 
 

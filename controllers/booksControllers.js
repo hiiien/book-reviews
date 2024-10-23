@@ -1,4 +1,4 @@
-import * as booksModels from "../models/booksModels.js";
+import * as Book from "../models/booksModels.js";
 
 
 //'rating': 'ratings_sortable desc'
@@ -10,7 +10,7 @@ export const fetchYourBooks = async (req, res) => {
             console.log("Error Processing User");
             return;
         }
-        const books = await booksModels.GetAllBooks(user_id); //gets all the books in ascending order by title
+        const books = await Book.GetAllBooks(user_id); //gets all the books in ascending order by title
         const booksWithCover = books.map((book) =>{ //makes a map to add the coverURL keyvalue pair
             const coverUrl = `https://covers.openlibrary.org/b/id/${book.cover_id}-M.jpg`
             return {
@@ -38,7 +38,7 @@ export const insertNewBook = async (req, res) => {
         if (!user_id) {
             return res.status(401).json({ error: 'User not authenticated' });
         }
-        await booksModels.AddNewBookModel(title, author, cover_id, user_id);
+        await Book.AddNewBookModel(title, author, cover_id, user_id);
         console.log("book added succesfully");
         res.status(200);
     } catch (error) {
@@ -52,7 +52,7 @@ export const fetchOneBookAndReview = async (req, res) => {
     try {
         const book_id = req.params.id * 1;
         const user_id = req.user.user_id;
-        const response = await booksModels.GetBookAndReview(book_id, user_id);
+        const response = await Book.GetBookAndReview(book_id, user_id);
         console.log("fetched book and review succesfully");
         res.json(response).status(200);
     } catch (error) {

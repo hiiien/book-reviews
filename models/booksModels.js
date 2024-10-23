@@ -1,16 +1,5 @@
 import { pool } from '../config/database.js';
 
-// export const CreateBooksTable = async () => { //creates the table
-//     const query = `
-//         CREATE TABLE IF NOT EXISTS books (
-//             book_id SERIAL PRIMARY KEY,
-//             title TEXT NOT NULL UNIQUE,
-//             author TEXT,
-//             cover_id INT NOT NULL UNIQUE 
-//         );
-//     `;
-//     await pool.query(query);
-// };
 
 //adds a new book
 export const AddNewBookModel = async (title, author, cover_id, user_id) => {

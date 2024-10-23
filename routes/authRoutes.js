@@ -7,6 +7,6 @@ router.post('/register', registerLocalUser);
 router.post('/login', loginUser);
 router.get('/logout', logoutUser);
 router.get('/login', (req, res) => {
-    res.json({Message: "hii"}); // Render login page
+    res.json({Message: "not authenticated"}); // Render login page
   });
 export default router

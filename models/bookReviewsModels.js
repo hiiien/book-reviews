@@ -1,17 +1,5 @@
 import { pool } from '../config/database.js';
 
-// export const CreateReviewsTable = async () => { //creates the table
-//     const query = `
-//         CREATE TABLE IF NOT EXISTS reviews (
-//             review_id SERIAL PRIMARY KEY,
-//             book_id INT REFERENCES books(book_id) ON DELETE CASCADE NOT NULL,
-//             review_text TEXT NOT NULL,
-//             review_rating INT CHECK(review_rating >= 1 AND review_rating <= 5) NOT NULL,
-//             review_date DATE NOT NULL DEFAULT CURRENT_DATE
-//         );
-//     `;
-//     await pool.query(query);
-// };
 
 export const AddNewReview = async (review, user_id) => {
      await pool.query(`

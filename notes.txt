@@ -1,0 +1,28 @@
+CREATE TABLE user_books ( 
+    user_book_id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(user_id) ON DELETE CASCADE,
+    book_id INTEGER REFERENCES books(book_id) ON DELETE CASCADE,
+    added_at TIMESTAMP DEFAULT NOW()
+);
+
+possible user_books set up for setting a many to many relation so the books table doesnt have many duplicates
+
+CREATE TABLE books ( 
+    book_id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    author VARCHAR(255),
+    cover_id UNIQUE
+);
+
+if i use the user_books idea then change the books table to have unique cover_id and no user_id tied to it
+
+CREATE TABLE reviews (
+    review_id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(user_id) ON DELETE CASCADE,
+    book_id INTEGER REFERENCES books(book_id) ON DELETE CASCADE,
+    review_text TEXT,
+    review_rating INTEGER CHECK (review_rating BETWEEN 1 AND 5),
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+make reviews cascade on book_id delete right now only cascade on user_id
