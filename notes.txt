@@ -1,28 +1,26 @@
-CREATE TABLE user_books ( 
-    user_book_id SERIAL PRIMARY KEY,
-    user_id INTEGER REFERENCES users(user_id) ON DELETE CASCADE,
-    book_id INTEGER REFERENCES books(book_id) ON DELETE CASCADE,
-    added_at TIMESTAMP DEFAULT NOW()
+
+
+
+CREATE TABLE books (
+    book_id SERIAL PRIMARY KEY,      -- Unique identifier for each book
+    title VARCHAR(255) NOT NULL,     -- Title of the book
+    author VARCHAR(255) NOT NULL,    -- Author of the book
+    cover_id VARCHAR(10)             -- cover_id for finding cover image
 );
 
-possible user_books set up for setting a many to many relation so the books table doesnt have many duplicates
 
-CREATE TABLE books ( 
-    book_id SERIAL PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-    author VARCHAR(255),
-    cover_id UNIQUE
+CREATE TABLE user_books (
+    user_book_id SERIAL PRIMARY KEY,   -- Unique identifier for each user-book relationship
+    user_id INT NOT NULL REFERENCES users(user_id) ON DELETE CASCADE, -- References the users table
+    book_id INT NOT NULL REFERENCES books(book_id) ON DELETE CASCADE, -- References the books table
+    date_added TIMESTAMP DEFAULT NOW(), -- When the user added this book
+    status VARCHAR(50)                 -- Status like "reading", "completed", "to-read"
 );
 
-if i use the user_books idea then change the books table to have unique cover_id and no user_id tied to it
-
-CREATE TABLE reviews (
-    review_id SERIAL PRIMARY KEY,
-    user_id INTEGER REFERENCES users(user_id) ON DELETE CASCADE,
-    book_id INTEGER REFERENCES books(book_id) ON DELETE CASCADE,
-    review_text TEXT,
-    review_rating INTEGER CHECK (review_rating BETWEEN 1 AND 5),
-    created_at TIMESTAMP DEFAULT NOW()
+CREATE TABLE notes (
+	note_id SERIAL PRIMARY KEY,
+	user_book_id INT NOT NULL REFERENCES user_books(user_book_id) ON DELETE CASCADE,
+	chapter_number INT NOT NULL,
+	content TEXT NOT NULL,
+	timestamp TIMESTAMP DEFAULT NOW()
 );
-
-make reviews cascade on book_id delete right now only cascade on user_id

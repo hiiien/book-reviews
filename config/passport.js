@@ -16,7 +16,6 @@ passport.deserializeUser(async (user_id, done) => {
     try {
         const result = await FindUserByID(user_id); //gets full user info
         if (result) {
-            console.log('User found:', result);
             return done(null, result); // Pass the user object to done
           } else {
             console.log('No user found');
