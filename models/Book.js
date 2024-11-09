@@ -18,11 +18,13 @@ class Book {
 
     //used to check if book exists already
     //returns undefined or the book row
-    static async getBook(cover_id){ 
+    static async getBook(data){ 
+        const { title, author, cover_id } = data;
         const query = `
-            SELECT * FROM books WHERE cover_id = $1;
+            SELECT * FROM books 
+            WHERE title = $1, author = $2, cover_id = $3;
         `;
-        const result = await pool.query(query, [cover_id]);
+        const result = await pool.query(query, [title, author, cover_id]);
         return result.rows[0]; 
     };
 

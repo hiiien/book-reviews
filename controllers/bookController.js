@@ -5,20 +5,23 @@ import Book from "../models/Book.js";
 //with more books from the openlibraries search
 export const createBook = async (req, res) => {
     try {
-        const cover_id = req.body.cover_id;
-        const exists = await Book.getBook(cover_id); //checks if the book already exists in the database before adding it
+        const book = req.body; //{title, author, cover_id}
+        if(Object.keys(book).legnth != 3){
+            return {status: 'error', code: 1, message: 'incorrect format of book data'};
+        }
+        const exists = await Book.getBook(book); //checks if the book already exists in the database before adding it send back the row
         if(exists){
             console.log("Book already exists");
-            return false;
+            return {status: 'error', code: 2, message: 'book already exists'};
         };
         const response = await Book.addBook(req.body); //req.body should be {title, author, cover_id};
         if(response){
             console.log(`${req.body.title} added to DB`);
-            return true;
+            return {status: 'success', code: 3, message: 'book successfully added'};
         }
     } catch (error) {
         console.log(`Error adding ${req.body.title} to DB`);
-        return null;
+        return {status: 'error', code: 4, message: 'error adding book'};
     }
 }
 
