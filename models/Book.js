@@ -27,7 +27,6 @@ class Book {
         const result = await pool.query(query, [title, author, cover_id]);
         return result.rows[0]; 
     };
-
 };
 
 export default Book;

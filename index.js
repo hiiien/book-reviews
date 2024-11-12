@@ -7,6 +7,7 @@ import booksRoutes from './routes/booksRoutes.js'
 import reviewRoutes from './routes/reviewRoutes.js'
 import authRoutes from './routes/authRoutes.js'
 import userRoutes from './routes/usersRoutes.js'
+import userBookRoutes from './routes/userBookRoutes.js'
 import { config } from "dotenv";
 import passport from './config/passport.js';
 import { ensureAuthenticated } from './middlewares/authMiddleware.js';
@@ -53,6 +54,7 @@ app.use(ensureAuthenticated);
 app.use('/api/book/', booksRoutes);
 app.use('/api/review/', reviewRoutes);
 app.use('/api/user/', userRoutes);
+app.use('/api/userBook/', userBookRoutes);
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
