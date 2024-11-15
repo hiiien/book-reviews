@@ -22,7 +22,7 @@ class Book {
         const { title, author, cover_id } = data;
         const query = `
             SELECT * FROM books 
-            WHERE title = $1, author = $2, cover_id = $3;
+            WHERE title = $1 AND author = $2 AND cover_id = $3;
         `;
         const result = await pool.query(query, [title, author, cover_id]);
         return result.rows[0]; 

@@ -17,6 +17,8 @@ CREATE TABLE user_books (
     status VARCHAR(50)                 -- Status like "reading", "completed", "to-read"
 );
 
+**Add rating to user_books
+
 CREATE TABLE notes (
 	note_id SERIAL PRIMARY KEY,
 	user_book_id INT NOT NULL REFERENCES user_books(user_book_id) ON DELETE CASCADE,
