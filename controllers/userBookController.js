@@ -34,7 +34,7 @@ export const createUserBook = async (req, res) => {
             book_id = foundBook.book_id;
         }
 
-        if(status === '' || status === null){
+        if(status != 'Not Started' && status != 'Currently Reading' && status != 'Finished'){
             status = 'Not Started'
         }
 
@@ -123,3 +123,34 @@ export const patchStatus = async (req, res) => {
     }
 }
 
+export const getUsersBooks = async (req, res) => {
+    const user_id = req.user.user_id;
+    if(!user_id){
+        return res.status(401).json({
+            message: "No user found. Log-in and try again"
+        });
+    };
+    const response = await UserBook.fetchUsersBooks(user_id);
+
+    if(response.rowCount === 0){
+        res.status(200).json({
+            message: "You havent added any favorite books yet. Search for your favorite books and add some!"
+        });
+    };
+    
+    const usersBooksWithURL = response.rows.map((book) =>{ //makes a map to add the coverURL keyvalue pair
+        const coverUrl = `https://covers.openlibrary.org/b/id/${book.cover_id}-M.jpg`
+        return {
+            ...book, //spread operator makes a copy of the book object and adds the key value cover url to it
+            coverUrl
+        };
+    });
+
+    res.status(200).json({
+        data: usersBooksWithURL
+    })
+
+    
+
+
+}
