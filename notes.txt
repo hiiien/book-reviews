@@ -12,9 +12,10 @@ CREATE TABLE books (
 CREATE TABLE user_books (
     user_book_id SERIAL PRIMARY KEY,   -- Unique identifier for each user-book relationship
     user_id INT NOT NULL REFERENCES users(user_id) ON DELETE CASCADE, -- References the users table
-    book_id INT NOT NULL REFERENCES books(book_id) ON DELETE CASCADE, -- References the books table
+    book_id INT NOT NULL REFERENCES books(book_id) UNIQUE ON DELETE CASCADE, -- References the books table -- book_id_UNIQUE_constraint <-constraint-name
     date_added TIMESTAMP DEFAULT NOW(), -- When the user added this book
     status VARCHAR(50)                 -- Status like "reading", "completed", "to-read"
+    review INT CHECK (review >= 1 AND review <= 5) - rating 1-5
 );
 
 **Add rating to user_books

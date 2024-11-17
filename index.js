@@ -53,8 +53,8 @@ app.use(ensureAuthenticated);
 //   });
 app.use('/api/book/', booksRoutes);
 app.use('/api/review/', reviewRoutes);
-app.use('/api/user/', userRoutes);
-app.use('/api/userBook/', userBookRoutes);
+app.use('/api/user', userRoutes);
+app.use('/api/userBook', userBookRoutes);
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
