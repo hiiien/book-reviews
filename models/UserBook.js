@@ -1,7 +1,8 @@
 import { pool } from "../config/database.js";
 
 class UserBook {
-    //data is book title, author, and cover_id
+    //adds userBook 
+    //rating if empty given null value
     static async addUserBook(data){
         const { user_id, book_id, status, rating} = data;
         const query = `
@@ -13,7 +14,7 @@ class UserBook {
         return result;
     };
 
-
+    //deletes a userBook
     static async removeUserBook(user_book_id, user_id){
         const query = `
             DELETE FROM user_books
@@ -24,7 +25,7 @@ class UserBook {
         return result
     }
 
-
+    //finds uer buy user_book_id
     static async findUserBookByID(user_book_id){
         const query = `
             SELECT *
@@ -32,9 +33,11 @@ class UserBook {
             WHERE user_book_id = $1;
         `
         const result = await pool.query(query, [user_book_id]);
-        return result.rows[0];
+        return result;
     };
 
+    //patches rating
+    //rating value is 1-5 only
     static async patchRating(rating, user_book_id, user_id){
         const query = `
             UPDATE user_books
@@ -70,6 +73,21 @@ class UserBook {
         `
 
         const result = await pool.query(query, [user_id]);
+        return result;
+    }
+
+    static async fetchUserBookWithNote(book_id, user_book_id, user_id) {
+        const query = `
+            SELECT books.book_id, books.title, books.author, books.cover_id,
+            user_books.user_book_id, user_books.status, user_books.rating, notes.*
+            FROM user_books
+            INNER JOIN books ON user_books.book_id = books.book_id
+            INNER JOIN notes ON user_books.user_book_id = notes.user_book_id
+            WHERE books.book_id = $1 
+            AND user_books.user_book_id = $2
+            AND user_books.user_id = $3;
+        `
+        const result = await pool.query(query, [book_id, user_book_id, user_id]);
         return result;
     }
 };

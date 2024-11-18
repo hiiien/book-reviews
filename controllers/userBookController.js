@@ -2,20 +2,25 @@ import UserBook from "../models/UserBook.js";
 import Book from "../models/Book.js";
 
 
-//TODO: might have to add default value for status
-//Review can be empty
+
+//creates a new user Book
+//before creation checks if the book it corresponds to is in the db
+//otherwise adds that book to the database and returns it book_id
 export const createUserBook = async (req, res) => {
     try{
         const {title, author, cover_id, rating} = req.body; //extracting values
         let status = req.body.status;
-        if(!title || !author || !cover_id){
+
+        //validating data
+        if(!title || !author || !cover_id){ 
             console.log("error: Invalid book contents, should be have title, author, cover_id, and status.");
             res.status(406).json({
                 message: "Invalid book content. Should have title, author, cover_id, and status"
             });
         };
 
-        const user_id =  req.user.user_id;
+        //ensuring user is logged in
+        const user_id =  req.user.user_id; 
         if(!user_id){
             return res.status(401).json({
                 message: "No user found please log-in and try again"
@@ -25,7 +30,8 @@ export const createUserBook = async (req, res) => {
         const book = {title, author, cover_id}; //passing book object to the model
         const foundBook = await Book.getBook(book);
 
-
+        //checks if book was found
+        //if not found make the book and use it's book id
         let book_id;
         if (!foundBook || foundBook.book_id === null) {
             const newBook = await Book.addBook(book);
@@ -34,11 +40,11 @@ export const createUserBook = async (req, res) => {
             book_id = foundBook.book_id;
         }
 
-        if(status != 'Not Started' && status != 'Currently Reading' && status != 'Finished'){
-            status = 'Not Started'
-        }
+        //ensures valid status
+        const validStatus = ['Not Started', 'Currently Reading', 'Finished'];
+        status = validStatus.includes(status) ? status : "Not Started";
 
-        console.log("Using book ID: ", book_id);
+        //adds userBook to database
         const newUserBook = {user_id, book_id, status, rating};
         const success = await UserBook.addUserBook(newUserBook);
         if(success.rows.length > 0){
@@ -56,6 +62,7 @@ export const createUserBook = async (req, res) => {
     };
 };
 
+//deletes a user book
 export const deleteUserBook = async (req, res) => {
     try {    
         const user_book_id = req.params.user_book_id;
@@ -79,14 +86,19 @@ export const deleteUserBook = async (req, res) => {
     }
 }
 
+//patches the rating column of a userBook
 export const patchRating = async (req, res) => {
     try {
         const user_book_id = req.params.user_book_id * 1;
         const rating = req.body.rating * 1;
         const user_id = req.user.user_id;
-        console.log("user_book_id: ", user_book_id);
-        console.log("rating: ", rating);
-        console.log("user_id: ", user_id);
+
+        if(rating < 1 || rating > 5){
+            return res.status(400).json({
+                message: "Rating must be between 1 and 5"
+            })
+        }
+
         const response = await UserBook.patchRating(rating, user_book_id, user_id);
         console.log(response);
         if(response.rowCount === 0){
@@ -103,17 +115,26 @@ export const patchRating = async (req, res) => {
     }
 }
 
+//patches the status column of a userBook
 export const patchStatus = async (req, res) => {
     try {
         const user_book_id = req.params.user_book_id * 1;
         const status = req.body.status;
         const user_id = req.user.user_id;
-        const response = await UserBook.patchStatus(status, user_book_id, user_id);
-        if(response.rowCount === 0){
+
+        const validStatus = ['Not Started', 'Currently Reading', 'Finished'];
+        if(!validStatus.includes(status)){
+            return res.status(400).json({
+                message: "Status must be Not Started, Currently Reading, or Finished"
+            });
+        };
+
+        const response = await UserBook.patchStatus(status, user_book_id, user_id); 
+        if(response.rowCount === 0){ 
             return res.status(400).json({
                 message: "Could not find matching entry. No value patched"
-            })
-        }
+            });
+        };
 
         return res.status(200).json({message: "Status successfully changed!"});
 
@@ -123,34 +144,83 @@ export const patchStatus = async (req, res) => {
     }
 }
 
+//GETS the books information from allof the books that 
+//a user has in their user books (favorites).
 export const getUsersBooks = async (req, res) => {
-    const user_id = req.user.user_id;
-    if(!user_id){
-        return res.status(401).json({
-            message: "No user found. Log-in and try again"
-        });
-    };
-    const response = await UserBook.fetchUsersBooks(user_id);
-
-    if(response.rowCount === 0){
-        res.status(200).json({
-            message: "You havent added any favorite books yet. Search for your favorite books and add some!"
-        });
-    };
-    
-    const usersBooksWithURL = response.rows.map((book) =>{ //makes a map to add the coverURL keyvalue pair
-        const coverUrl = `https://covers.openlibrary.org/b/id/${book.cover_id}-M.jpg`
-        return {
-            ...book, //spread operator makes a copy of the book object and adds the key value cover url to it
-            coverUrl
+    try {
+        const user_id = req.user.user_id;
+        if(!user_id){ //ensures login before continuing 
+            return res.status(401).json({
+                message: "No user found. Log-in and try again"
+            });
         };
-    });
+        const response = await UserBook.fetchUsersBooks(user_id); //fetchs the book information
 
-    res.status(200).json({
-        data: usersBooksWithURL
-    })
+        if(response.rowCount === 0){ //if the user hasnt added any books returns message
+            res.status(200).json({
+                message: "You havent added any favorite books yet. Search for your favorite books and add some!"
+            });
+        };
+        
+        const bookWithCoverURL = response.rows.map((book) =>{ //makes a map to add the coverURL keyvalue pair
+            const coverUrl = `https://covers.openlibrary.org/b/id/${book.cover_id}-S.jpg`
+            return {
+                ...book, //spread operator makes a copy of the book object and adds the key value cover url to it
+                coverUrl
+            };
+        });
+
+        return res.status(200).json({
+            data: bookWithCoverURL
+        });
+
+    } catch (error) {
+        console.log("Error fetching user's books: ", err);
+        return res.status(500).json({message: "Error fetching users's books. Please try again later"});
+    };
+};
+
+export const getUserBookWithNotes = async (req, res) => {
+    try {
+        const book_id = req.body.book_id * 1;
+        const user_book_id = req.params.user_book_id * 1;
+        const user_id = req.user.user_id * 1;
+
+        if(!user_id){
+            return res.status(401).json({
+                message: "User not logged in"
+            })
+        }
+
+        const response = await UserBook.fetchUserBookWithNote(book_id, user_book_id, user_id);
+        if(response.rowCount === 0){
+            return res.status(400).json({
+                message: "No matching book found"
+            })
+        }
+
+        const bookWithCoverURL = response.rows.map((book) =>{ //makes a map to add the coverURL keyvalue pair
+            const coverUrl = `https://covers.openlibrary.org/b/id/${book.cover_id}-M.jpg`
+            return {
+                ...book, //spread operator makes a copy of the book object and adds the key value cover url to it
+                coverUrl
+            };
+        });
+
+        return res.status(200).json({
+            message: "UserBook data and note successfully fetched",
+            data: bookWithCoverURL
+        });
+    } catch (error) {
+        return res.status(500).json({
+            message: "Error fetching userBook and note data",
+            error: error
+        })
+    }
+    
 
     
+
 
 
 }
