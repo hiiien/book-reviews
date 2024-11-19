@@ -1,7 +1,7 @@
 import passport from '../config/passport.js';
 import * as User from '../models/usersModel.js';
 
-
+//registers a local user
 export const registerLocalUser = async (req, res) => {
     try {
         const email = req.body.email;

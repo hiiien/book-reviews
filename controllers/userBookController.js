@@ -89,9 +89,15 @@ export const deleteUserBook = async (req, res) => {
 //patches the rating column of a userBook
 export const patchRating = async (req, res) => {
     try {
-        const user_book_id = req.params.user_book_id * 1;
+        const user_book_id = req.params.user_book_id;
         const rating = req.body.rating * 1;
         const user_id = req.user.user_id;
+
+        if(typeof(user_book_id) !== 'number'){
+            return res.status(400).json({
+                message: "URL param must be an integer!"
+            });
+        };
 
         if(rating < 1 || rating > 5){
             return res.status(400).json({
@@ -99,7 +105,7 @@ export const patchRating = async (req, res) => {
             })
         }
 
-        const response = await UserBook.patchRating(rating, user_book_id, user_id);
+        const response = await UserBook.patchRating(rating, (user_book_id * 1), user_id);
         console.log(response);
         if(response.rowCount === 0){
             return res.status(400).json({
@@ -118,9 +124,15 @@ export const patchRating = async (req, res) => {
 //patches the status column of a userBook
 export const patchStatus = async (req, res) => {
     try {
-        const user_book_id = req.params.user_book_id * 1;
+        const user_book_id = req.params.user_book_id;
         const status = req.body.status;
         const user_id = req.user.user_id;
+
+        if(typeof(user_book_id) !== 'number'){
+            return res.status(400).json({
+                message: "URL param must be an integer!"
+            });
+        };
 
         const validStatus = ['Not Started', 'Currently Reading', 'Finished'];
         if(!validStatus.includes(status)){
@@ -129,7 +141,7 @@ export const patchStatus = async (req, res) => {
             });
         };
 
-        const response = await UserBook.patchStatus(status, user_book_id, user_id); 
+        const response = await UserBook.patchStatus(status, (user_book_id * 1), user_id); 
         if(response.rowCount === 0){ 
             return res.status(400).json({
                 message: "Could not find matching entry. No value patched"
@@ -182,9 +194,21 @@ export const getUsersBooks = async (req, res) => {
 
 export const getUserBookWithNotes = async (req, res) => {
     try {
-        const book_id = req.body.book_id * 1;
-        const user_book_id = req.params.user_book_id * 1;
+        const book_id = req.body.book_id;
+        const user_book_id = req.params.user_book_id;
         const user_id = req.user.user_id * 1;
+
+        if(typeof(user_book_id) !== 'number'){
+            return res.status(400).json({
+                message: "URL param must be an integer!"
+            });
+        };
+
+        if(typeof(book_id) !== 'number'){
+            return res.status(400).json({
+                message: "Book ID must be an integer!"
+            });
+        };
 
         if(!user_id){
             return res.status(401).json({
@@ -192,7 +216,7 @@ export const getUserBookWithNotes = async (req, res) => {
             })
         }
 
-        const response = await UserBook.fetchUserBookWithNote(book_id, user_book_id, user_id);
+        const response = await UserBook.fetchUserBookWithNote((book_id * 1), (user_book_id * 1), user_id);
         if(response.rowCount === 0){
             return res.status(400).json({
                 message: "No matching book found"
@@ -217,10 +241,4 @@ export const getUserBookWithNotes = async (req, res) => {
             error: error
         })
     }
-    
-
-    
-
-
-
 }
