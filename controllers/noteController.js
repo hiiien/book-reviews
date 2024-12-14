@@ -6,8 +6,15 @@ import UserBook from "../models/UserBook.js";
 export const postNote = async (req, res) => {
     try {
         const { chapter_number, content } = req.body; // Destructure body parameters
-        const { user_book_id } = req.params;
-        console.log(chapter_number, content, user_book_id);
+        const user_book_id = req.params.user_book_id * 1;
+
+        //ensuring the variables are integers
+        if (!Number.isInteger(user_book_id)) {
+            return res.status(400).json({
+                message: "URL param must be an integer!"
+            });
+        }
+
         if(!chapter_number || !content){ //ensure correct data
             return res.status(400).json({
                 message: "Invalid request, must include user_book_id, chapter_number, and content"
@@ -52,6 +59,13 @@ export const patchNote = async (req, res) => {
     try {
         const { user_book_id, note_id } = req.params;
         const { chapter_number, content } = req.body;
+
+        //ensuring the variables are integers
+        if (!Number.isInteger(user_book_id) || !Number.isInteger(note_id)) { 
+            return res.status(400).json({
+                message: "URL param must be an integer!"
+            });
+        }
 
         if(!chapter_number && !content){ //ensure correct data
             return res.status(400).json({
@@ -114,6 +128,14 @@ export const deleteNote = async (req, res) => {
     try {
         const { user_book_id, note_id } = req.params;
         const user_id = req.user.user_id;
+
+        //ensuring the variables are integers
+        if (!Number.isInteger(user_book_id) || !Number.isInteger(note_id)) {
+            return res.status(400).json({
+                message: "URL param must be an integer!"
+            });
+        }
+
         const response = await UserBook.findUserBookByID(user_book_id); //checks for user_book corresponding to the note
         if(response.rowCount === 0){ //if userBook does not exist return bad request
             return res.status(400).json({

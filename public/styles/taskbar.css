@@ -1,0 +1,128 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.amiri-regular {
+    font-family: "Amiri", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  .amiri-bold {
+    font-family: "Amiri", serif;
+    font-weight: 700;
+    font-style: normal;
+  }
+  
+
+#taskbar {
+    display: flex;
+    width: 100%;
+    height: 72px;
+    background-color: #eed9a7;
+}
+
+#left-taskbar{
+    display: flex;
+    align-items: center;
+    background-color: inherit;
+    flex-grow: 1;
+    flex: 3;
+    min-width: 200px
+}
+
+#right-taskbar{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    background-color: inherit;
+    flex: 7;
+}
+
+.change-page{
+    text-decoration: none; 
+    color: inherit; 
+    display: flex;
+    width: 128px;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.change-page:hover {
+    background-color: #E0C27B;
+}
+
+#small-search {
+    width: 100%;
+    height: 48px;
+    border-radius: 50px;
+    background-color: #FFF5E3;
+    border: none;
+    padding: 0px 20px;
+    align-self: center;
+    position: relative;
+}
+
+#small-search:hover {
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+#small-search:focus {
+    outline: none; 
+    border: none; 
+}
+#filler{
+    flex:3;
+}
+
+.search-and-suggest {
+    flex: 4;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: visible;
+}
+
+.search-item-text {
+    grid-column: 2; /* Occupies the second column */
+    color: black; /* Default color to make it visible */
+    
+}
+
+#search-list{
+    background-color: #FFF5E3;
+}
+
+
+.search-results {
+    position: absolute; 
+    top: 48px;
+    right: 10%;
+    width: 80%;
+    background: #FFF5E3;
+    border: 1px solid #ddd;
+    overflow-y: auto;
+  }
+
+  #search-list{
+    list-style: none;
+  }
+
+  .search-results li div{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .list-item a {
+    display: flex;
+    text-decoration: none; 
+
+  }
+
+.list-item a div {
+    display: flex;
+    flex-direction: column;
+}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/taskbar.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Assistant:wght@200..800&display=swap" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+    <div id="taskbar">
+        <div id="left-taskbar">
+            <a class="change-page amiri-bold" href="">About</a>
+            <a class="change-page amiri-bold" href="">Favorites</a>
+        </div>
+        <div id="right-taskbar">
+            <div class="search-and-suggest">
+                <input id="small-search" type="text" autocomplete="off">
+                <div class="search-results">
+                    <ul id="search-list"></ul>
+                </div>
+            </div>
+            <div id="filler"></div>
+        </div>
+    </div>
+    <script src="/js/taskbar.js"></script>
+  </body>
+
+</html>

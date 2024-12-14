@@ -3,8 +3,6 @@ import session from 'express-session';
 import bodyParser from 'body-parser';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import booksRoutes from './routes/booksRoutes.js'
-import reviewRoutes from './routes/reviewRoutes.js'
 import authRoutes from './routes/authRoutes.js'
 import userRoutes from './routes/usersRoutes.js'
 import userBookRoutes from './routes/userBookRoutes.js'
@@ -43,7 +41,9 @@ app.use(
 
 // Serve static files (if any)
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.get("/", (req, res) => {
+  res.render("home.ejs");
+})
 app.use('/auth', authRoutes);
 app.use(ensureAuthenticated);
 // app.use((req, res, next) => {
@@ -51,8 +51,7 @@ app.use(ensureAuthenticated);
 //     console.log('User:', req.user); // Log user data
 //     next();
 //   });
-app.use('/api/book/', booksRoutes);
-app.use('/api/review/', reviewRoutes);
+
 app.use('/api/user', userRoutes);
 app.use('/api/userBook', userBookRoutes);
 

@@ -65,9 +65,15 @@ export const createUserBook = async (req, res) => {
 //deletes a user book
 export const deleteUserBook = async (req, res) => {
     try {    
-        const user_book_id = req.params.user_book_id;
+        const user_book_id = req.params.user_book_id * 1;
         const user_id = req.user.user_id;
 
+        //ensuring the variables are integers
+        if (!Number.isInteger(user_book_id)) {
+            return res.status(400).json({
+                message: "URL param must be an integer!"
+            });
+        }
 
         const response = await UserBook.removeUserBook(user_book_id, user_id); //add some kind of check for succesful deletion   
 
@@ -93,11 +99,12 @@ export const patchRating = async (req, res) => {
         const rating = req.body.rating * 1;
         const user_id = req.user.user_id;
 
-        if(typeof(user_book_id) !== 'number'){
+        //ensuring the variables are integers
+        if (!Number.isInteger(user_book_id)) {
             return res.status(400).json({
                 message: "URL param must be an integer!"
             });
-        };
+        }
 
         if(rating < 1 || rating > 5){
             return res.status(400).json({
@@ -128,11 +135,12 @@ export const patchStatus = async (req, res) => {
         const status = req.body.status;
         const user_id = req.user.user_id;
 
-        if(typeof(user_book_id) !== 'number'){
+        //ensuring the variables are integers
+        if (!Number.isInteger(user_book_id)) {
             return res.status(400).json({
                 message: "URL param must be an integer!"
             });
-        };
+        }
 
         const validStatus = ['Not Started', 'Currently Reading', 'Finished'];
         if(!validStatus.includes(status)){
@@ -194,21 +202,22 @@ export const getUsersBooks = async (req, res) => {
 
 export const getUserBookWithNotes = async (req, res) => {
     try {
-        const book_id = req.body.book_id;
-        const user_book_id = req.params.user_book_id;
+        const book_id = req.body.book_id * 1;
+        const user_book_id = req.params.user_book_id * 1;
         const user_id = req.user.user_id * 1;
-
-        if(typeof(user_book_id) !== 'number'){
+        
+        //ensuring the variables are integers
+        if (!Number.isInteger(user_book_id)) {
             return res.status(400).json({
                 message: "URL param must be an integer!"
             });
-        };
-
-        if(typeof(book_id) !== 'number'){
+        }
+        
+        if (!Number.isInteger(book_id)) {
             return res.status(400).json({
                 message: "Book ID must be an integer!"
             });
-        };
+        }
 
         if(!user_id){
             return res.status(401).json({
@@ -216,7 +225,8 @@ export const getUserBookWithNotes = async (req, res) => {
             })
         }
 
-        const response = await UserBook.fetchUserBookWithNote((book_id * 1), (user_book_id * 1), user_id);
+        const response = await UserBook.fetchUserBookWithNote(book_id, user_book_id, user_id);
+        console.log(response)
         if(response.rowCount === 0){
             return res.status(400).json({
                 message: "No matching book found"
