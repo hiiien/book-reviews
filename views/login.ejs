@@ -3,16 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/home.css">
     <title>Document</title>
 </head>
-<body>
+<body id="login-body">
     <div class="login-register-container">
-        <h1>Book Notes</h1>
-        <label for="login-email">Email</label>
-        <input type="text" name="email" id="login-email">
-        <label for="login-password">Password</label>
-        <input type="text" name="password" id="login-password">
-        <button type="submit">Sign In</button>
+        
+        <h1 class="amiri-bold">Book Notes</h1>
+        <form id="login-form">
+            <label class="amiri-regular" for="login-email">Email</label>
+            <input class="amiri-regular" type="text" name="email" id="login-email" autocomplete="off" required>
+            <label class="amiri-regular" for="login-password">Password</label>
+            <input class="amiri-regular" type="password" name="password" id="login-password" autocomplete="off" required>
+            <button class="amiri-regular btn-log" type="submit" id="login-submit">Sign In</button>
+        </form>
+        <div class="line-design">
+            <hr class="line">
+            <p class="amiri-regular">or</p>
+            <hr class="line">
+        </div>
+        <button class="amiri-regular btn-log btn-google">Log in with Google</button>
+        <button class="amiri-regular btn-log" id="btn-register">Register</button>
+        <div class="form-popup" id="reg-popup">
+            <form class="form-container" id="register-form">
+                <h3>Register</h3>
+                <label class="amiri-regular" for="register-email">Email</label>
+                <input class="amiri-regular" type="text" name="email" id="register-email" autocomplete="off" required>
+                <label class="amiri-regular" for="register-password">Password</label>
+                <input class="amiri-regular" type="password" name="password" id="register-password" autocomplete="off" required>
+                <button class="amiri-regular btn-log" type="submit" id="register-submit">Register</button>
+                <button class="amiri-regular btn-log" type="button" id="back-btn">Back</button>
+            </form>
+        </div>
     </div>
+    <script src="js/login.js"></script>
 </body>
 </html>

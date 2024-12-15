@@ -9,7 +9,7 @@ export const registerLocalUser = async (req, res) => {
         const user = await User.AddNewLocalUser(email, unhashedPassword);
     if (user) {
       console.log("New user added:", user);
-      res.status(201).json({ message: "User registered successfully." });
+      res.status(201).json({ message: "Registered successfully!" });
     } else {
       res.status(400).json({ error: "User already exists"});
     }
@@ -26,11 +26,11 @@ export const loginUser = (req, res, next) => {
         return next(err); // Handle error
       }
       if (!user) {
-        return res.redirect('/auth/login'); // Redirect if authentication fails
+        return res.status(401).json({"login": "failed"})//res.redirect('/auth/login'); // Redirect if authentication fails
       }
       req.logIn(user, (err) => {
         if (err) return next(err);
-        return res.redirect('/home');
+        return res.status(200).json({"Success": "Logged in"});
       });
     })(req, res, next);
   };

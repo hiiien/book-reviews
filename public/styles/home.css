@@ -4,6 +4,44 @@
     box-sizing: border-box;
 }
 
+html {
+  font-size: 16px;
+}
+
+body {
+  font-size: 1rem;
+}
+
+:root {
+  --font-size-xxs: 0.625rem; /* 10px */
+  --font-size-xs: 0.75rem;   /* 12px */
+  --font-size-sm: 0.875rem;  /* 14px */
+  --font-size-md: 1rem;      /* 16px - Base */
+  --font-size-lg: 1.25rem;   /* 20px */
+  --font-size-xl: 1.5rem;    /* 24px */
+  --font-size-xxl: 2rem;     /* 32px */
+  --font-size-xxxl: 3rem;    /* 48px */
+}
+
+
+:root {
+  --space-xxs: 0.25rem; /* 4px */
+  --space-xs: 0.5rem;   /* 8px */
+  --space-sm: 0.75rem;  /* 12px */
+  --space-md: 1rem;     /* 16px - Base */
+  --space-lg: 1.5rem;   /* 24px */
+  --space-xl: 2rem;     /* 32px */
+  --space-xxl: 3rem;    /* 48px */
+  --space-xxxl: 4rem;   /* 64px */
+}
+
+:root {
+  --line-height-sm: 1.2;  /* Compact */
+  --line-height-md: 1.5;  /* Default for readability */
+  --line-height-lg: 1.75; /* Spacious */
+}
+
+
 .amiri-regular {
     font-family: "Amiri", serif;
     font-weight: 400;
@@ -21,6 +59,7 @@ body {
     margin: 0;
     height: 100vh;
     position: relative;
+
 }
 
 body::before {
@@ -38,3 +77,151 @@ body::before {
     z-index: -1; /* Place it behind the content */
 }
 
+/* LOGIN CSS */
+
+#login-body {
+  background-color: #FFF5E3;
+}
+#login-body::before {
+  background-image: none;
+}
+
+
+.login-register-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+}
+
+#login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+h1 {
+  margin-bottom: var(--space-xl);
+
+}
+
+#login-form > input {
+  margin-bottom: var(--space-md);
+  border-radius: 50px;
+  height: 32px;
+  width: 256px;
+  padding: 0 var(--space-xs);
+  border: none;
+  background-color: #eed9a7;
+  outline:none
+}
+
+#login-form > input:hover{
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+#login-form > label{
+  font-size: var(--font-size-xs);
+  padding-left: 10px;
+}
+
+.btn-log{
+  border: none;
+  height: 32px;
+  width: 128px;
+  align-self: center;
+  border-radius: 50px;
+}
+
+#login-form > button{
+  margin-top: var(--space-md);
+}
+
+ .btn-log:hover{
+  background-color: #bfbfbf;
+}
+
+.line-design {
+  width: 256;
+  display: flex;
+  align-items: center;
+  margin: var(--space-xl) 0;
+}
+
+.line {
+  width: 100px;
+  height: 1px;
+  background-color: #ccc;
+  margin-top: var(--space-xxs);
+}
+
+.line-design > p {
+  text-align: center;
+  width: 32px;
+  color: #a6a6a6;
+  font-size: medium;
+}
+
+.btn-google {
+  margin-bottom: var(--space-sm);
+  background-color: white;
+}
+
+.form-popup {
+  position: fixed; 
+  top: 20%;
+  left: 30%;
+  z-index: 2;
+  background-color: #eed9a7;
+  width: 40%;
+  height: 60%;
+  border-radius: 50px;
+  display: none;
+  justify-content: center;
+  padding: var(--space-md);
+  box-shadow: 0 10px 20px 5px rgba(0, 0, 0, 0.5);
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  
+}
+
+.form-container > * {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.form-container > h3 {
+  text-align: center;
+}
+
+.form-container > label {
+  font-size: var(--font-size-xs);
+  padding-left: 10px;
+  margin: 0;
+}
+
+.form-container > input {
+  margin-bottom: var(--space-xl);
+  border-radius: 50px;
+  height: 32px;
+  width: 256px;
+  padding: 0 var(--space-xs);
+  border: none;
+  background-color: #FFF5E3;;
+  outline:none;
+  margin-top: 0;
+}
+
+.form-container > button {
+  margin-top: 0;
+}
+
+#register-submit{
+  margin-bottom: var(--space-sm);
+}

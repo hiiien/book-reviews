@@ -41,16 +41,36 @@ app.use(
 
 // Serve static files (if any)
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+//temp till i finish frontend
+//temp till i finish frontend
+//temp till i finish frontend
+//temp till i finish frontend
+//temp till i finish frontend
+//temp till i finish frontend
 app.get("/", (req, res) => {
-  res.render("home.ejs");
+  res.render("login.ejs");
 })
 app.use('/auth', authRoutes);
+
+//temp till i finish frontend
+//temp till i finish frontend
+//temp till i finish frontend
+//temp till i finish frontend
+//temp till i finish frontend
+//temp till i finish frontend
+//temp till i finish frontend
+
 app.use(ensureAuthenticated);
 // app.use((req, res, next) => {
 //     console.log('Session:', req.session); // Log session data
 //     console.log('User:', req.user); // Log user data
 //     next();
 //   });
+app.get("/home", (req, res) => {
+  res.render("home.ejs");
+});
 
 app.use('/api/user', userRoutes);
 app.use('/api/userBook', userBookRoutes);
