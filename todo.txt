@@ -1,16 +1,1 @@
-
-Endpoint Structure:
-
-GET /user_books/:user_book_id/notes → Get all notes for a specific user_book.
-POST /user_books/:user_book_id/notes → Add a new note for a specific user_book.
-PUT /user_books/:user_book_id/notes/:note_id → Update a specific note for a user_book.
-DELETE /user_books/:user_book_id/notes/:note_id → Delete a specific note for a user_book.
-Why?
-
-The notes are contextually part of a user_book.
-Keeps the API clean and hierarchical, reflecting the relationship. DONE
-
-
-MIGHT HAVE TO REDO THE NOTE UPDATE ROUTES DEPENDING ON THE FRONTEND
-
-ADD input sanitization for all Endpoints
+change search page to use less javascript alteration of the dom 

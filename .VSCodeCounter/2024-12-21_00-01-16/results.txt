@@ -1,0 +1,64 @@
+Date : 2024-12-21 00:01:16
+Directory : c:\Users\gavin\OneDrive\Desktop\My Websites\Book Review
+Total : 25 files,  2677 codes, 78 comments, 251 blanks, all 3006 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| JSON       |          2 |      1,299 |          0 |          2 |      1,301 |
+| JavaScript |         18 |        917 |         71 |        175 |      1,163 |
+| CSS        |          2 |        366 |          7 |         72 |        445 |
+| HTML       |          3 |         95 |          0 |          2 |         97 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++-------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                      | files      | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                         |         25 |      2,677 |         78 |        251 |      3,006 |
+| . (Files)                                                                                 |          3 |      1,345 |         20 |         17 |      1,382 |
+| config                                                                                    |          2 |         55 |          3 |         11 |         69 |
+| controllers                                                                               |          4 |        382 |         28 |         74 |        484 |
+| middlewares                                                                               |          1 |          7 |          0 |          2 |          9 |
+| models                                                                                    |          4 |        205 |         16 |         33 |        254 |
+| public                                                                                    |          4 |        554 |          9 |         97 |        660 |
+| public\js                                                                                 |          2 |        188 |          2 |         25 |        215 |
+| public\styles                                                                             |          2 |        366 |          7 |         72 |        445 |
+| routes                                                                                    |          4 |         34 |          2 |         15 |         51 |
+| views                                                                                     |          3 |         95 |          0 |          2 |         97 |
+| views (Files)                                                                             |          2 |         63 |          0 |          1 |         64 |
+| views\partials                                                                            |          1 |         32 |          0 |          1 |         33 |
++-------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                                  | language   | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| c:\Users\gavin\OneDrive\Desktop\My Websites\Book Review\config\database.js                | JavaScript |         12 |          1 |          4 |         17 |
+| c:\Users\gavin\OneDrive\Desktop\My Websites\Book Review\config\passport.js                | JavaScript |         43 |          2 |          7 |         52 |
+| c:\Users\gavin\OneDrive\Desktop\My Websites\Book Review\controllers\authControllers.js    | JavaScript |         34 |          3 |          5 |         42 |
+| c:\Users\gavin\OneDrive\Desktop\My Websites\Book Review\controllers\noteController.js     | JavaScript |        136 |          7 |         26 |        169 |
+| c:\Users\gavin\OneDrive\Desktop\My Websites\Book Review\controllers\userBookController.js | JavaScript |        196 |         18 |         41 |        255 |
+| c:\Users\gavin\OneDrive\Desktop\My Websites\Book Review\controllers\usersControllers.js   | JavaScript |         16 |          0 |          2 |         18 |
+| c:\Users\gavin\OneDrive\Desktop\My Websites\Book Review\index.js                          | JavaScript |         46 |         20 |         15 |         81 |
+| c:\Users\gavin\OneDrive\Desktop\My Websites\Book Review\middlewares\authMiddleware.js     | JavaScript |          7 |          0 |          2 |          9 |
+| c:\Users\gavin\OneDrive\Desktop\My Websites\Book Review\models\Book.js                    | JavaScript |         23 |          5 |          4 |         32 |
+| c:\Users\gavin\OneDrive\Desktop\My Websites\Book Review\models\Note.js                    | JavaScript |         51 |          1 |          8 |         60 |
+| c:\Users\gavin\OneDrive\Desktop\My Websites\Book Review\models\UserBook.js                | JavaScript |         76 |          9 |         12 |         97 |
+| c:\Users\gavin\OneDrive\Desktop\My Websites\Book Review\models\usersModel.js              | JavaScript |         55 |          1 |          9 |         65 |
+| c:\Users\gavin\OneDrive\Desktop\My Websites\Book Review\package-lock.json                 | JSON       |      1,272 |          0 |          1 |      1,273 |
+| c:\Users\gavin\OneDrive\Desktop\My Websites\Book Review\package.json                      | JSON       |         27 |          0 |          1 |         28 |
+| c:\Users\gavin\OneDrive\Desktop\My Websites\Book Review\public\js\login.js                | JavaScript |         67 |          2 |          9 |         78 |
+| c:\Users\gavin\OneDrive\Desktop\My Websites\Book Review\public\js\taskbar.js              | JavaScript |        121 |          0 |         16 |        137 |
+| c:\Users\gavin\OneDrive\Desktop\My Websites\Book Review\public\styles\home.css            | CSS        |        253 |          7 |         51 |        311 |
+| c:\Users\gavin\OneDrive\Desktop\My Websites\Book Review\public\styles\taskbar.css         | CSS        |        113 |          0 |         21 |        134 |
+| c:\Users\gavin\OneDrive\Desktop\My Websites\Book Review\routes\authRoutes.js              | JavaScript |         10 |          0 |          2 |         12 |
+| c:\Users\gavin\OneDrive\Desktop\My Websites\Book Review\routes\noteRoutes.js              | JavaScript |          5 |          0 |          4 |          9 |
+| c:\Users\gavin\OneDrive\Desktop\My Websites\Book Review\routes\userBookRoutes.js          | JavaScript |         14 |          2 |          3 |         19 |
+| c:\Users\gavin\OneDrive\Desktop\My Websites\Book Review\routes\usersRoutes.js             | JavaScript |          5 |          0 |          6 |         11 |
+| c:\Users\gavin\OneDrive\Desktop\My Websites\Book Review\views\home.ejs                    | HTML       |         23 |          0 |          0 |         23 |
+| c:\Users\gavin\OneDrive\Desktop\My Websites\Book Review\views\login.ejs                   | HTML       |         40 |          0 |          1 |         41 |
+| c:\Users\gavin\OneDrive\Desktop\My Websites\Book Review\views\partials\taskbar.ejs        | HTML       |         32 |          0 |          1 |         33 |
+| Total                                                                                     |            |      2,677 |         78 |        251 |      3,006 |
++-------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+

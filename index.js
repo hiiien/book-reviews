@@ -68,6 +68,13 @@ app.use(ensureAuthenticated);
 //     console.log('User:', req.user); // Log user data
 //     next();
 //   });
+
+app.get("/search", (req, res) => {
+  res.render("search.ejs")
+})
+app.get("/favorites", (req, res) => {
+  res.render("favorites.ejs")
+})
 app.get("/home", (req, res) => {
   res.render("home.ejs");
 });
