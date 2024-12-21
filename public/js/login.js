@@ -5,7 +5,6 @@ form.addEventListener("submit", async (event) => {
         const formData = new FormData(form);
         const email = formData.get("email");
         const password = formData.get("password");
-        console.log({email, password});
         const response = await fetch("/auth/login", {
             method: "POST",
             headers: {
@@ -41,6 +40,7 @@ backBtn.addEventListener("click", hidePopup);
 const regBtn = document.getElementById("btn-register");
 regBtn.addEventListener("click", async (event) => {
     formPopup.style.display = "flex"; 
+    formPopup.classList.add("slide-up");
 })
 
 
@@ -50,6 +50,11 @@ registerForm.addEventListener("submit", async (event) => {
         event.preventDefault();
         const formData = new FormData(registerForm);
         const email = formData.get("email");
+        var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        if(email.length < 3 || !email.includes("@") || email.length > 254 || !email.match(validRegex)){
+            alert("Invalid Email");
+            return;
+        }
         const password = formData.get("password");
         const response = await fetch("/auth/register", {
             method: "POST",

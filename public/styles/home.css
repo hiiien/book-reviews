@@ -59,7 +59,7 @@ body {
     margin: 0;
     height: 100vh;
     position: relative;
-
+    background-color: #FFF5E3;
 }
 
 body::before {
@@ -69,12 +69,76 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('../images/book_background.jpg');
-    background-size: cover; /* Make it cover the entire viewport */
-    background-repeat: no-repeat;
-    background-position: center;
-    opacity: 0.6; /* Reduce opacity of the background image */
-    z-index: -1; /* Place it behind the content */
+    /* background-image: url('../images/book_background.jpg'); */
+    background-color: #FFF5E3;
+    /* background-size: cover; Make it cover the entire viewport */
+    /* background-repeat: no-repeat; */
+    /* background-position: center; */
+    /* opacity: 0.6; Reduce opacity of the background image */
+    /* z-index: -1; Place it behind the content */
+}
+
+.home-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 40vh;
+  min-height: 100vh;
+  max-height: auto;
+}
+
+.home-header {
+  margin-bottom: var(--space-md);
+  opacity: 0;
+  animation: slideUp 2s ease-out forwards;
+
+}
+
+.home-container > p {
+  text-align: center;
+  opacity: 0;
+  animation: slideUp 2s ease-out forwards;
+  animation-delay: 1s;
+}
+
+.search-result-container{
+  width: 100%;
+  height: auto;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-auto-rows: 150px;
+  column-gap: 15px;
+  row-gap: 30px;
+  padding-top: 150px;
+  padding-right: auto;
+  padding-left: auto;
+  
+}
+.search-result-card{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.search-result-card > a{
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none; 
+}
+
+.search-result-card > a > *{
+  line-height: var(--line-height-sm);
+}
+
+.search-result-container > .load-btn{
+  grid-column: 1 / span 3;
+  align-self: self-start;
+  justify-self: center;
 }
 
 /* LOGIN CSS */
@@ -104,7 +168,7 @@ body::before {
 
 h1 {
   margin-bottom: var(--space-xl);
-
+  font-size: var(--font-size-xxl);
 }
 
 #login-form > input {
@@ -184,6 +248,11 @@ h1 {
   box-shadow: 0 10px 20px 5px rgba(0, 0, 0, 0.5);
 }
 
+.slide-up{
+  animation: slideUp 0.5s ease; /* Smooth transition */
+}
+
+
 .form-container {
   display: flex;
   flex-direction: column;
@@ -198,6 +267,8 @@ h1 {
 
 .form-container > h3 {
   text-align: center;
+  font-size: var(--font-size-xxl);
+  margin-bottom: var(--space-xl);
 }
 
 .form-container > label {
@@ -224,4 +295,17 @@ h1 {
 
 #register-submit{
   margin-bottom: var(--space-sm);
+}
+
+
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
 }

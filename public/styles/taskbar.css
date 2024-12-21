@@ -23,6 +23,7 @@
     height: 72px;
     background-color: #eed9a7;
     position: fixed;
+    z-index: 2;
 }
 
 #left-taskbar{
@@ -106,6 +107,7 @@
     background: #FFF5E3;
     border: 1px solid #ddd;
     overflow-y: auto;
+    z-index: 2;
   }
 
   #search-list{
