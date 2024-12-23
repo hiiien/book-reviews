@@ -80,7 +80,7 @@ app.get("/home", (req, res) => {
 });
 
 app.use('/api/user', userRoutes);
-app.use('/api/userBook', userBookRoutes);
+app.use('/api/book', userBookRoutes);
 
 
 app.listen(port, () => {

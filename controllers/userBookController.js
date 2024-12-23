@@ -191,7 +191,8 @@ export const getUsersBooks = async (req, res) => {
         });
 
         return res.status(200).json({
-            data: bookWithCoverURL
+            data: bookWithCoverURL,
+            message: "Success"
         });
 
     } catch (error) {
