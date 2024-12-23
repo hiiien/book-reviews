@@ -6,6 +6,7 @@ import { fileURLToPath } from 'url';
 import authRoutes from './routes/authRoutes.js'
 import userRoutes from './routes/usersRoutes.js'
 import userBookRoutes from './routes/userBookRoutes.js'
+import pageRoutes from './routes/pageRoutes.js'
 import { config } from "dotenv";
 import passport from './config/passport.js';
 import { ensureAuthenticated } from './middlewares/authMiddleware.js';
@@ -43,41 +44,11 @@ app.use(
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-//temp till i finish frontend
-//temp till i finish frontend
-//temp till i finish frontend
-//temp till i finish frontend
-//temp till i finish frontend
-//temp till i finish frontend
-app.get("/", (req, res) => {
-  res.render("login.ejs");
-})
 app.use('/auth', authRoutes);
-
-//temp till i finish frontend
-//temp till i finish frontend
-//temp till i finish frontend
-//temp till i finish frontend
-//temp till i finish frontend
-//temp till i finish frontend
-//temp till i finish frontend
+app.use('/', pageRoutes);
 
 app.use(ensureAuthenticated);
-// app.use((req, res, next) => {
-//     console.log('Session:', req.session); // Log session data
-//     console.log('User:', req.user); // Log user data
-//     next();
-//   });
 
-app.get("/search", (req, res) => {
-  res.render("search.ejs")
-})
-app.get("/favorites", (req, res) => {
-  res.render("favorites.ejs")
-})
-app.get("/home", (req, res) => {
-  res.render("home.ejs");
-});
 
 app.use('/api/user', userRoutes);
 app.use('/api/book', userBookRoutes);
