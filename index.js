@@ -46,7 +46,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/auth', authRoutes);
 app.use('/', pageRoutes);
-
 app.use(ensureAuthenticated);
 
 

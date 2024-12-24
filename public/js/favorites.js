@@ -42,12 +42,18 @@ function displayDataCreator(data) {
     favoritesContainer.innerHTML = "";
     let startVal = 0;
     let i;
+    let title;
+    let author;
+    let cover_id;
     function loopTen(){
         for(i = startVal; i < (startVal + 9) && i < data.length; i++){
             const div = document.createElement("div");
             div.classList.add("favorite-result-card");
+            title = encodeURIComponent(data[i].title);
+            author = encodeURIComponent(data[i].author);
+            cover_id = encodeURIComponent(data[i].cover_id);
             div.innerHTML = `
-                <a href="">
+                <a href="/book?title=${title}&author=${author}&cover_id=${cover_id}">
                 <img src="https://covers.openlibrary.org/b/id/${data[i].cover_id}-L.jpg?default=https://openlibrary.org/static/images/icons/avatar_book-sm.png" 
                         width="40" height="60" alt="book cover">
                     <div>

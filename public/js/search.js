@@ -17,7 +17,7 @@ function displaySubsection(docs){
             const div = document.createElement("div");
             div.classList.add("search-result-card");
             div.innerHTML = `
-                <a href="">
+                <a href="/book?title=${docs[i].title}&author=${docs[i].author_name[0]}&cover_id=${docs[i].cover_i}">
                 <img src="https://covers.openlibrary.org/b/id/${docs[i].cover_i}-L.jpg?default=https://openlibrary.org/static/images/icons/avatar_book-sm.png" 
                         width="40" height="60" alt="book cover">
                     <div>
